@@ -1,0 +1,40 @@
+# ── macOS artifacts ──────────────────────────────────────────────────────────
+.DS_Store
+__MACOSX/
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.env
+.venv/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoint
+
+# ── Tool / IDE config ─────────────────────────────────────────────────────────
+.claude/
+.idea/
+.vscode/
+
+# ── Large data assets (too big for GitHub, load from HuggingFace/Kaggle) ─────
+data/slake_imgs/
+data/dicom_files/
+
+# ── JSONL prediction files (large — track via Git LFS or exclude entirely) ───
+# To track with Git LFS instead, run: git lfs track "outputs/**/*.jsonl"
+outputs/inference/*.jsonl
+outputs/judge/*.jsonl
+outputs/_archive/**/*.jsonl
+outputs/dicom_evaluation/*.jsonl
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+logs/*.log
+
+# ── Model caches ─────────────────────────────────────────────────────────────
+*.bin
+*.safetensors
+*.pt
+*.pth

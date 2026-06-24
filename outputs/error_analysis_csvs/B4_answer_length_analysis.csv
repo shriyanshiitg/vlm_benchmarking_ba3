@@ -1,0 +1,16 @@
+Model,Length Bin,Count,Avg_F1,Avg_Judge_Acc
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,Short (<20),792,59.1,69.95
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,Medium (20-100),587,43.28,55.54
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,Long (>100),132,32.81,46.21
+google/gemma-3-4b-it,Short (<20),1118,55.12,60.64
+google/gemma-3-4b-it,Medium (20-100),2174,36.33,48.71
+google/gemma-3-4b-it,Long (>100),198,9.86,19.19
+google/medgemma-4b-it,Short (<20),1025,70.03,73.66
+google/medgemma-4b-it,Medium (20-100),453,66.96,68.21
+google/medgemma-4b-it,Long (>100),34,15.39,17.65
+llava-hf/llava-v1.6-mistral-7b-hf,Short (<20),3201,47.07,57.54
+llava-hf/llava-v1.6-mistral-7b-hf,Medium (20-100),275,28.01,56.73
+llava-hf/llava-v1.6-mistral-7b-hf,Long (>100),12,0.93,8.33
+microsoft/llava-med-v1.5-mistral-7b,Short (<20),1403,37.28,52.32
+microsoft/llava-med-v1.5-mistral-7b,Medium (20-100),109,20.89,37.61
+microsoft/llava-med-v1.5-mistral-7b,Long (>100),0,,

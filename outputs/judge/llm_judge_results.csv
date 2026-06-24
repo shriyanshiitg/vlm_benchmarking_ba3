@@ -1,0 +1,15 @@
+model,dataset,n_judged,n_failed,avg_score_all,avg_score_closed,avg_score_open,judge_acc_all,judge_acc_closed,judge_acc_open
+google/gemma-3-4b-it,okvqa,978,22,2.809,,2.809,40.9,,40.9
+llava-hf/llava-v1.6-mistral-7b-hf,okvqa,982,18,3.428,,3.428,57.64,,57.64
+google/gemma-3-4b-it,slake,1061,0,3.281,3.55,3.107,55.14,68.99,46.2
+google/medgemma-4b-it,slake,1061,0,4.004,4.111,3.935,73.7,83.65,67.29
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,slake_7b,1061,0,3.587,3.719,3.502,63.15,73.8,56.28
+llava-hf/llava-v1.6-mistral-7b-hf,slake_7b,1061,0,3.055,3.375,2.848,50.14,63.22,41.71
+microsoft/llava-med-v1.5-mistral-7b,slake_7b-2,1061,0,3.177,3.147,3.197,53.35,57.69,50.54
+google/gemma-3-4b-it,vqa_rad,451,0,2.978,3.155,2.755,45.9,56.97,32.0
+google/medgemma-4b-it,vqa_rad,451,0,3.647,3.765,3.5,63.86,73.31,52.0
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,vqa_rad_7b,450,1,3.46,3.809,3.02,60.22,74.1,42.71
+llava-hf/llava-v1.6-mistral-7b-hf,vqa_rad_7b,451,0,2.887,3.195,2.5,45.01,58.17,28.5
+microsoft/llava-med-v1.5-mistral-7b,vqa_rad_7b,451,0,3.009,2.721,3.37,46.34,45.42,47.5
+google/gemma-3-4b-it,vqav2,1000,0,3.365,3.406,3.324,58.3,60.0,56.6
+llava-hf/llava-v1.6-mistral-7b-hf,vqav2,994,6,3.82,3.862,3.778,70.22,71.94,68.48

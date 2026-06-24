@@ -1,0 +1,15 @@
+Model,Domain,Dataset,Spatial_Qs,Spatial_Failures,Spatial Failure Rate (%)
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,Medical,SLAKE,305,212,69.51
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,Medical,VQA-RAD,82,48,58.54
+google/gemma-3-4b-it,Medical,SLAKE,305,224,73.44
+google/gemma-3-4b-it,Medical,VQA-RAD,82,50,60.98
+google/gemma-3-4b-it,General,OK-VQA,95,78,82.11
+google/gemma-3-4b-it,General,VQAv2,143,127,88.81
+google/medgemma-4b-it,Medical,SLAKE,305,122,40.0
+google/medgemma-4b-it,Medical,VQA-RAD,82,39,47.56
+llava-hf/llava-v1.6-mistral-7b-hf,Medical,SLAKE,305,193,63.28
+llava-hf/llava-v1.6-mistral-7b-hf,Medical,VQA-RAD,82,59,71.95
+llava-hf/llava-v1.6-mistral-7b-hf,General,OK-VQA,95,63,66.32
+llava-hf/llava-v1.6-mistral-7b-hf,General,VQAv2,143,61,42.66
+microsoft/llava-med-v1.5-mistral-7b,Medical,SLAKE,305,204,66.89
+microsoft/llava-med-v1.5-mistral-7b,Medical,VQA-RAD,82,33,40.24

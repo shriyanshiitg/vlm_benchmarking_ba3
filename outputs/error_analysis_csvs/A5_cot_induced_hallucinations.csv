@@ -1,0 +1,9 @@
+Model,Dataset,Failed CoT Qs,CoT Hallucinations,CoT Hallucination Rate (%)
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,SLAKE,479,167,34.86
+google/gemma-3-4b-it,OK-VQA,413,135,32.69
+google/gemma-3-4b-it,SLAKE,524,180,34.35
+google/gemma-3-4b-it,VQAv2,406,92,22.66
+google/medgemma-4b-it,SLAKE,281,67,23.84
+llava-hf/llava-v1.6-mistral-7b-hf,OK-VQA,529,20,3.78
+llava-hf/llava-v1.6-mistral-7b-hf,SLAKE,483,26,5.38
+llava-hf/llava-v1.6-mistral-7b-hf,VQAv2,179,8,4.47

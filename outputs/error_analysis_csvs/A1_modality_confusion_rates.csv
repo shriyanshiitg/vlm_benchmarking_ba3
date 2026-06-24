@@ -1,0 +1,6 @@
+,Total Modality Qs,Modality Confusions,Confusion Rate (%)
+google/medgemma-4b-it,124,5,4.03
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,124,6,4.84
+google/gemma-3-4b-it,124,6,4.84
+microsoft/llava-med-v1.5-mistral-7b,124,11,8.87
+llava-hf/llava-v1.6-mistral-7b-hf,124,37,29.84

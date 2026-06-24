@@ -1,0 +1,11 @@
+Content Type,Count,FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,google/gemma-3-4b-it,google/medgemma-4b-it,llava-hf/llava-v1.6-mistral-7b-hf,microsoft/llava-med-v1.5-mistral-7b
+Organ,253,60.67,52.39,78.72,42.47,47.17
+Position,186,42.06,34.87,61.38,29.61,34.04
+Abnormality,150,53.19,55.85,75.51,45.48,34.31
+KG,148,31.08,22.1,53.68,24.59,30.22
+Modality,108,79.01,76.92,98.15,43.52,63.41
+Size,65,46.15,44.62,81.54,67.69,36.92
+Plane,58,43.1,17.24,41.38,15.95,34.1
+Quantity,52,7.69,0.0,42.31,15.38,0.0
+Color,34,8.82,32.35,100.0,47.06,2.94
+Shape,7,42.86,0.0,42.86,14.29,0.0

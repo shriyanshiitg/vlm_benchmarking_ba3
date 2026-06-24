@@ -1,0 +1,6 @@
+,Total Zero-F1 Open Qs,Anatomical Hallucinations,Hallucination Rate (%)
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,541,118,21.81
+google/gemma-3-4b-it,582,139,23.88
+llava-hf/llava-v1.6-mistral-7b-hf,589,146,24.79
+google/medgemma-4b-it,330,93,28.18
+microsoft/llava-med-v1.5-mistral-7b,477,225,47.17

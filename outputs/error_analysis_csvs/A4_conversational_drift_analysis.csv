@@ -1,0 +1,15 @@
+Model,Dataset,Total Qs,Leakage Count,Leakage Rate (%),Drift Count,Drift Rate (%)
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,SLAKE,1061,2,0.19,27,2.54
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,VQA-RAD,451,0,0.0,0,0.0
+google/gemma-3-4b-it,OK-VQA,1000,1,0.1,334,33.4
+google/gemma-3-4b-it,SLAKE,1061,1,0.09,84,7.92
+google/gemma-3-4b-it,VQA-RAD,451,0,0.0,25,5.54
+google/gemma-3-4b-it,VQAv2,1000,3,0.3,45,4.5
+google/medgemma-4b-it,SLAKE,1061,0,0.0,11,1.04
+google/medgemma-4b-it,VQA-RAD,451,0,0.0,1,0.22
+llava-hf/llava-v1.6-mistral-7b-hf,OK-VQA,1000,6,0.6,15,1.5
+llava-hf/llava-v1.6-mistral-7b-hf,SLAKE,1061,2,0.19,28,2.64
+llava-hf/llava-v1.6-mistral-7b-hf,VQA-RAD,451,0,0.0,0,0.0
+llava-hf/llava-v1.6-mistral-7b-hf,VQAv2,1000,0,0.0,15,1.5
+microsoft/llava-med-v1.5-mistral-7b,SLAKE,1061,0,0.0,4,0.38
+microsoft/llava-med-v1.5-mistral-7b,VQA-RAD,451,0,0.0,0,0.0

@@ -1,0 +1,11 @@
+Model A,Model B,Common Qs,Shared Wins,Shared Failures,Model A Exclusive Wins,Model B Exclusive Wins
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,google/gemma-3-4b-it,1061,502,308,168,83
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,google/medgemma-4b-it,1061,623,232,47,159
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,llava-hf/llava-v1.6-mistral-7b-hf,1061,432,291,238,100
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,microsoft/llava-med-v1.5-mistral-7b,1061,446,271,224,120
+google/gemma-3-4b-it,google/medgemma-4b-it,1061,552,246,33,230
+google/gemma-3-4b-it,llava-hf/llava-v1.6-mistral-7b-hf,1061,416,360,169,116
+google/gemma-3-4b-it,microsoft/llava-med-v1.5-mistral-7b,1061,410,320,175,156
+google/medgemma-4b-it,llava-hf/llava-v1.6-mistral-7b-hf,1061,482,229,300,50
+google/medgemma-4b-it,microsoft/llava-med-v1.5-mistral-7b,1061,485,198,297,81
+llava-hf/llava-v1.6-mistral-7b-hf,microsoft/llava-med-v1.5-mistral-7b,1061,375,338,157,191

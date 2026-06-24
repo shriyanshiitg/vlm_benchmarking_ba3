@@ -1,0 +1,3 @@
+Model,VQAv2,SLAKE,SLAKE Penalty,VQA-RAD,VQA-RAD Penalty
+google/gemma-3-4b-it,58.3,55.14,3.1599999999999966,45.9,12.399999999999999
+llava-hf/llava-v1.6-mistral-7b-hf,70.22,50.14,20.08,45.01,25.21

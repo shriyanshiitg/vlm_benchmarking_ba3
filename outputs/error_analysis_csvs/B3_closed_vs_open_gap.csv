@@ -1,0 +1,6 @@
+Model,SLAKE,VQA-RAD,VQAv2,OK-VQA
+FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL,17.52,31.39,,
+google/gemma-3-4b-it,22.79,24.97,3.4,
+google/medgemma-4b-it,16.37,21.31,,
+llava-hf/llava-v1.6-mistral-7b-hf,21.52,29.67,3.46,
+microsoft/llava-med-v1.5-mistral-7b,7.15,-2.08,,

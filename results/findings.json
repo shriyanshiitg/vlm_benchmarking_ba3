@@ -1,0 +1,13 @@
+[
+  {
+    "model": "google/gemma-3-4b-it",
+    "dataset": "SLAKE",
+    "finding": "surface_form_bias",
+    "open_total": 645,
+    "zero_f1_count": 410,
+    "zero_f1_pct": 63.6,
+    "non_empty_in_zero_f1": 410,
+    "non_empty_pct": 100.0,
+    "interpretation": "All zero-F1 open-ended predictions were non-empty. Token-level F1 penalizes surface-form variation (Lungs vs Lung, Radiography vs X-Ray) without capturing semantic correctness. General VLMs not fine-tuned on dataset vocabulary are systematically disadvantaged relative to medical VLMs trained on these exact labels."
+  }
+]
