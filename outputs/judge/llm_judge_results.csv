@@ -13,3 +13,9 @@ llava-hf/llava-v1.6-mistral-7b-hf,vqa_rad_7b,451,0,2.887,3.195,2.5,45.01,58.17,2
 microsoft/llava-med-v1.5-mistral-7b,vqa_rad_7b,451,0,3.009,2.721,3.37,46.34,45.42,47.5
 google/gemma-3-4b-it,vqav2,1000,0,3.365,3.406,3.324,58.3,60.0,56.6
 llava-hf/llava-v1.6-mistral-7b-hf,vqav2,994,6,3.82,3.862,3.778,70.22,71.94,68.48
+FreedomIntelligence_HuatuoGPT-Vision-7B-Qwen2.5VL,okvqa,1000,0,3.796,,3.796,65.9,,65.9
+chaoyinshe_llava-med-v1.5-mistral-7b-hf,okvqa-2,1000,0,3.441,,3.441,60.2,,60.2
+google_medgemma-4b-it,okvqa-2,1000,0,3.533,,3.533,58.1,,58.1
+FreedomIntelligence_HuatuoGPT-Vision-7B-Qwen2.5VL,vqav2,1000,0,4.331,4.53,4.191,82.1,88.14,77.85
+chaoyinshe_llava-med-v1.5-mistral-7b-hf,vqav2,1000,0,3.906,4.318,3.494,73.5,85.2,61.8
+google_medgemma-4b-it,vqav2,1000,0,3.873,4.028,3.718,70.5,76.0,65.0

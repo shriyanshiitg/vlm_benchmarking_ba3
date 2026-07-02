@@ -170,6 +170,9 @@ Following the HuggingFace LLM-as-a-Judge cookbook:
 |---|---|---|---|---|---|---|---|---|---|
 | `google/gemma-3-4b-it` | okvqa | 978 | 22 | 2.809 | — | 2.809 | 40.90% | — | 40.90% |
 | `llava-hf/llava-v1.6-mistral-7b-hf` | okvqa | 982 | 18 | 3.428 | — | 3.428 | 57.64% | — | 57.64% |
+| `google/medgemma-4b-it` | okvqa | 1000 | 0 | 3.533 | — | 3.533 | 58.10% | — | 58.10% |
+| `microsoft/llava-med-v1.5-mistral-7b` | okvqa | 1000 | 0 | 3.441 | — | 3.441 | 60.20% | — | 60.20% |
+| `HuatuoGPT-Vision-7B-Qwen2.5VL` | okvqa | 1000 | 0 | **3.796** | — | **3.796** | **65.90%** | — | **65.90%** |
 | `google/gemma-3-4b-it` | slake | 1061 | 0 | 3.281 | 3.550 | 3.107 | 55.14% | 68.99% | 46.20% |
 | `google/medgemma-4b-it` | slake | 1061 | 0 | **4.004** | **4.111** | **3.935** | **73.70%** | **83.65%** | **67.29%** |
 | `HuatuoGPT-Vision-7B-Qwen2.5VL` | slake_7b | 1061 | 0 | 3.587 | 3.719 | 3.502 | 63.15% | 73.80% | 56.28% |
@@ -181,7 +184,10 @@ Following the HuggingFace LLM-as-a-Judge cookbook:
 | `llava-hf/llava-v1.6-mistral-7b-hf` | vqa_rad_7b | 451 | 0 | 2.887 | 3.195 | 2.500 | 45.01% | 58.17% | 28.50% |
 | `microsoft/llava-med-v1.5-mistral-7b` | vqa_rad_7b | 451 | 0 | 3.009 | 2.721 | 3.370 | 46.34% | 45.42% | 47.50% |
 | `google/gemma-3-4b-it` | vqav2 | 1000 | 0 | 3.365 | 3.406 | 3.324 | 58.30% | 60.00% | 56.60% |
-| `llava-hf/llava-v1.6-mistral-7b-hf` | vqav2 | 994 | 6 | **3.820** | **3.862** | **3.778** | **70.22%** | **71.94%** | **68.48%** |
+| `llava-hf/llava-v1.6-mistral-7b-hf` | vqav2 | 994 | 6 | 3.820 | 3.862 | 3.778 | 70.22% | 71.94% | 68.48% |
+| `google/medgemma-4b-it` | vqav2 | 1000 | 0 | 3.873 | 4.028 | 3.718 | 70.50% | 76.00% | 65.00% |
+| `microsoft/llava-med-v1.5-mistral-7b` | vqav2 | 1000 | 0 | 3.906 | 4.318 | 3.494 | 73.50% | 85.20% | 61.80% |
+| `HuatuoGPT-Vision-7B-Qwen2.5VL` | vqav2 | 1000 | 0 | **4.331** | **4.530** | **4.191** | **82.10%** | **88.14%** | **77.85%** |
 
 ### 10.5 Pearson Correlation: Token F1 vs Judge Score
 
@@ -223,7 +229,13 @@ All correlations are statistically significant ($p < 0.0001$), confirming the ju
 | `google/gemma-3-4b-it` | OK-VQA | v2 | 1,000 | 23.95% | 0.00% | 24.30% | 22.53% | 87.06% | 40.90% |
 | `llava-v1.6-mistral-7b` | OK-VQA | v2 | 1,000 | 41.64% | 0.00% | 41.50% | 39.58% | 90.67% | 57.64% |
 | `google/gemma-3-4b-it` | VQAv2 | v2 | 1,000 | 58.81% | 76.80% | 41.00% | **54.40%** | **96.43%** | 58.30% |
-| `llava-v1.6-mistral-7b` | VQAv2 | v2 | 1,000 | 59.46% | 80.40% | **61.00%** | 53.82% | 94.19% | **70.22%** |
+| `llava-v1.6-mistral-7b` | VQAv2 | v2 | 1,000 | 59.46% | 80.40% | **61.00%** | 53.82% | 94.19% | 70.22% |
+| `google/medgemma-4b-it` | VQAv2 | v2 | 1,000 | 12.25% | 72.60% | 53.40% | 2.27% | 83.34% | 70.50% |
+| `llava-med-v1.5-mistral-7b` | VQAv2 | v2 | 1,000 | 12.00% | 55.80% | 20.60% | 3.08% | 84.47% | 73.50% |
+| `google/medgemma-4b-it` | OK-VQA | v2 | 1,000 | 4.86% | 0.00% | 42.20% | 0.82% | 82.10% | 58.10% |
+| `llava-med-v1.5-mistral-7b` | OK-VQA | v2 | 1,000 | 5.21% | 0.00% | 17.70% | 1.27% | 83.48% | 60.20% |
+| `HuatuoGPT-Vision-7B` | VQAv2 | v2 | 1,000 | 42.33% | 87.17% | 62.18% | 32.18% | 88.17% | **82.10%** |
+| `HuatuoGPT-Vision-7B` | OK-VQA | v2 | 1,000 | 34.32% | 0.00% | 45.80% | 29.77% | 88.09% | **65.90%** |
 
 ---
 
@@ -238,6 +250,8 @@ All correlations are statistically significant ($p < 0.0001$), confirming the ju
 4. **The Pearson Correlation Range (0.61–0.79) is the Right Zone:** High enough to confirm the judge tracks real quality differences, but not so high ($>0.95$) that it merely replicates F1. The LLM judge adds genuine semantic signal. The lowest correlation (LLaVA-Med VQA-RAD, 0.612) directly corresponds to the model with the most conversational output style — confirming the judge is correctly rescuing those predictions.
 
 5. **Surface-Form Metric Bias Arbitrarily Penalizes Intelligence:** Traditional string matching actively works against conversational architectures. Re-scoring the outputs using robust number conversion and extraction adjustments rescued Gemma-3's open VQAv2 tracking from a broken 32.40% up to an actual 41.00%, confirming that generation forcing or surface mismatches skew accuracy baselines.
+
+6. **The Illusion of Catastrophic Forgetting (Metric Failure):** Initial surface-level metrics (e.g., F1 dropping to ~12%, BLEU ~2-3) strongly suggested that aggressive medical fine-tuning caused catastrophic forgetting of general visual-linguistic concepts. However, the LLM-as-a-Judge evaluation entirely refutes this. The Judge Accuracy for MedGemma (70.50%) and LLaVA-Med (73.50%) on the general-domain VQAv2 dataset actually surpasses the general-purpose LLaVA-1.6 (70.22%), with HuatuoGPT achieving a benchmark-high 82.10%. The models did not lose general knowledge; rather, medical fine-tuning permanently altered their output formatting and response style in ways that catastrophically broke traditional exact-match metrics. This highlights the critical necessity of semantic LLM judges when evaluating cross-domain VLM generalization.
 
 ---
 

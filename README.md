@@ -48,11 +48,17 @@ vlm_benchmark/
 │   ├── 03_inference_harness_v2.ipynb  # v2 prompt-engineered inference (primary)
 │   ├── 04_llm_judge.ipynb             # LLM-as-a-Judge pipeline
 │   ├── 05_error_analysis.ipynb
+│   ├── 06_statistical_significance.ipynb
+│   ├── 07-medical-on-general-2.ipynb
+│   ├── LLMasaJudgeMedonGen.ipynb
+│   ├── dicom-evaluation-multislice-huatuogpt.ipynb
 │   └── dicom/                         # DICOM-specific experiments
 │       ├── dicom.ipynb
 │       └── dicom-evaluation.ipynb
 │
 ├── scripts/                           # Standalone Python scripts
+│   ├── make_notebook.py
+│   ├── score_new_outputs.py
 │   └── statistical_significance.py   # Post-hoc bootstrap CI + permutation tests
 │
 ├── outputs/
