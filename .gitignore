@@ -38,3 +38,14 @@ logs/*.log
 *.safetensors
 *.pt
 *.pth
+
+# ── Backup files ─────────────────────────────────────────────────────────────
+*.bak
+*.orig
+
+# ── Internal / working documents (not for public repo) ───────────────────────
+docs/post_meeting_progress_report.md
+
+# ── Inter-rater study intermediate files ─────────────────────────────────────
+outputs/inter_rater_retry_*.jsonl
+outputs/inter_rater_results-*.jsonl
