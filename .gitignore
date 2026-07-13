@@ -45,6 +45,7 @@ logs/*.log
 
 # ── Internal / working documents (not for public repo) ───────────────────────
 docs/post_meeting_progress_report.md
+docs/research_gap_analysis.md
 
 # ── Inter-rater study intermediate files ─────────────────────────────────────
 outputs/inter_rater_retry_*.jsonl
