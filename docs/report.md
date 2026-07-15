@@ -293,4 +293,16 @@ The S-CoT intervention resulted in a performance degradation across all metrics.
 
 **Conclusion:** Rigid semantic routing (S-CoT) is not a universal fix for CoT-induced hallucinations in smaller architectures. The overhead of maintaining structural compliance creates a trade-off that, in this instance, outweighs the benefits of guided reasoning.
 
----
+### 14.4 Extension: Architecture Generalisability (July 2026)
+
+To determine whether the degradation was an artefact of MedGemma-4B's specific architecture or a general property of small VLMs, we extended the S-CoT experiment to two additional model–dataset pairs using the **identical prompt** (see `docs/report_scot_extension.md` for full details).
+
+| Model | Dataset | N | Base F1 | SCoT F1 | **ΔF1** | p (paired permutation) |
+|---|---|---|---|---|---|---|
+| MedGemma-4B | SLAKE | 440 | 70.5% | 65.5% | **−5.0 pp** | **<0.001 ★★★** |
+| HuatuoGPT-7B | SLAKE | 1061 | 47.9% | 47.1% | −0.8 pp | 0.570 ns |
+| MedGemma-4B | VQA-RAD | 451 | 62.5% | 61.6% | −0.9 pp | 0.576 ns |
+
+**Key finding:** The degradation is **not architecture-agnostic**. HuatuoGPT-7B (Qwen2.5VL backbone, 7B parameters) shows no significant change on SLAKE, and MedGemma-4B itself is unaffected on VQA-RAD. Generative drag appears to emerge from the interaction of *limited model capacity* (4B parameters) with *dataset visual complexity* (SLAKE's heterogeneous multi-organ imaging), rather than being a universal property of structured prompting.
+
+The generative drag hypothesis is therefore **conditionally confirmed**: it holds for sub-5B models on visually complex datasets but does not generalise beyond that regime.
