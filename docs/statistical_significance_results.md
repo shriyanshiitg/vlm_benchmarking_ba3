@@ -158,18 +158,9 @@ On knowledge-based VQA, the 7B general model comprehensively outperforms the 4B 
 
 ---
 
-## Methods Paragraph (ready to paste into paper)
+## Methodology
 
-```
-All reported differences were subjected to rigorous post-hoc statistical testing
-on per-sample prediction JSONL files without re-inference. 95% bootstrap confidence
-intervals were computed using 10,000 resamples (seed=42). Statistical significance
-between model pairs was assessed via two-sided paired permutation tests (10,000
-permutations, seed=42); pairing is valid because all models evaluated identical
-question sets. Significance thresholds: *p<0.05, **p<0.01, ***p<0.001;
-ns denotes p≥0.05. All analysis is implemented in
-notebooks/06_statistical_significance.ipynb.
-```
+All reported differences were subjected to post-hoc statistical testing on per-sample prediction JSONL files without re-inference. 95% bootstrap confidence intervals were computed using 10,000 resamples (seed 42). Statistical significance between model pairs was assessed via two-sided paired permutation tests (10,000 permutations, seed 42); pairing is valid because all models evaluated identical question sets. Significance thresholds: * p < 0.05, ** p < 0.01, *** p < 0.001; ns denotes p ≥ 0.05. Full implementation is in `notebooks/06_statistical_significance.ipynb`.
 
 ---
 

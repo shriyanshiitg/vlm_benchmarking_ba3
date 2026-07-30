@@ -145,28 +145,9 @@ N = 782 records), three failure categories were identified.
 
 ---
 
-## 6. Methods Paragraph (paper-ready)
+## 6. Methodology
 
-```
-We conducted a post-hoc BLEU audit to quantify whether BLEU-4 provides
-evaluation signal distinct from Token F1 and LLM Judge Accuracy.
-Restricting analysis to open-ended questions (N = 11766), we
-computed sentence-level BLEU-4 (add-1 smoothing) and unigram Token F1 per
-prediction–reference pair, and computed Pearson and Spearman correlations
-across three metric pairs. BLEU and Token F1 showed high correlation
-(r = 0.937), indicating near-redundancy for terse model
-outputs. BLEU correlated less strongly with judge scores
-(r = 0.595) than F1 did (r = 0.633),
-confirming it is the least reliable proxy for semantic correctness in this
-benchmark. A rescue-zone analysis identified 2562 predictions
-(BLEU < 0.10, Token F1 < 0.15, Judge ≥ 4/5) that both classical metrics
-falsely penalise. Qualitative autopsy of 782 high-judge/low-BLEU medical
-records attributed failures to three categories: medical synonymy
-(379 cases), conversational filler (49 cases), and
-granularity mismatch (13 cases). These results motivated
-our use of LLM Judge Accuracy as the primary open-ended evaluation metric,
-with BLEU and F1 retained as secondary metrics for reproducibility.
-```
+Analysis was restricted to open-ended questions only (N = 11,766). Sentence-level BLEU-4 (add-1 smoothing) and unigram Token F1 were computed per prediction–reference pair. Pearson and Spearman correlations were calculated across three metric pairs: BLEU vs Token F1, BLEU vs Judge score, and Token F1 vs Judge score. A rescue-zone analysis identified predictions where BLEU < 0.10 and Token F1 < 0.15 but Judge ≥ 4/5 — cases where both classical metrics falsely penalise correct predictions. Qualitative autopsy of 782 high-judge/low-BLEU medical records was conducted to categorise failure modes.
 
 ---
 

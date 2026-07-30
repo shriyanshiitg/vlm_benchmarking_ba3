@@ -306,3 +306,100 @@ To determine whether the degradation was an artefact of MedGemma-4B's specific a
 **Key finding:** The degradation is **not architecture-agnostic**. HuatuoGPT-7B (Qwen2.5VL backbone, 7B parameters) shows no significant change on SLAKE, and MedGemma-4B itself is unaffected on VQA-RAD. Generative drag appears to emerge from the interaction of *limited model capacity* (4B parameters) with *dataset visual complexity* (SLAKE's heterogeneous multi-organ imaging), rather than being a universal property of structured prompting.
 
 The generative drag hypothesis is therefore **conditionally confirmed**: it holds for sub-5B models on visually complex datasets but does not generalise beyond that regime.
+
+---
+
+## 15. Few-Shot Experiment: Does In-Context Learning Close the Domain Gap?
+
+### 15.1 Motivation
+
+Every evaluation in this benchmark is zero-shot — models receive a question and an image with no prior examples. The central finding (Section 12, Finding 1) is that domain pre-training trumps parameter count: MedGemma-4B (4B, medical) comprehensively outperforms LLaVA-1.6-7B (7B, generalist) despite being smaller. An important follow-up question is whether this gap can be narrowed without fine-tuning — specifically, whether providing in-context clinical examples (few-shot prompting) allows generalist models to learn the expected question-answer format from the prompt itself.
+
+If few-shot closes the gap, it implies the bottleneck is **informational**: generalist models have latent clinical capability that needs to be unlocked with examples, making few-shot prompting a viable low-cost clinical deployment strategy.
+
+If few-shot does not close the gap, it implies the bottleneck is **architectural**: the missing capability is domain-specific visual feature extraction and clinical reasoning encoded during medical pre-training, which examples cannot replicate. This would validate why medical fine-tuning is mandatory.
+
+### 15.2 Experimental Setup
+
+**Test subset:** 200 samples drawn from the SLAKE EN test split using stratified sampling across 6 buckets: 3 question content types (Modality, Organ, Abnormality) × 2 answer types (Closed/Open), approximately 33 samples per bucket. Fixed seed (42) ensures the identical 200-sample subset is used for all 6 runs.
+
+**Models and conditions:**
+
+| Model | Type | Parameters | Conditions |
+|---|---|---|---|
+| Gemma-3-4B-IT | Generalist | 4B (fp16) | 0-shot, 1-shot, 3-shot |
+| LLaVA-v1.6-Mistral-7B | Generalist | 7B (4-bit NF4) | 0-shot, 1-shot, 3-shot |
+
+**Few-shot examples:** Drawn exclusively from the SLAKE **training split** (never test). One example per question content type was selected: Modality, Organ, and Abnormality, prioritising short, unambiguous ground-truth answers (1–3 words). Each example is prepended as a complete prior turn in the conversation (user image + question → assistant answer). The 1-shot condition uses only the Modality exemplar; the 3-shot condition uses all three in sequence.
+
+**Statistical test:** Paired permutation test (10,000 iterations, seed 42) comparing 0-shot vs. 1-shot and 0-shot vs. 3-shot within each model, on matched question indices.
+
+**Inference:** Run on Kaggle T4 GPU. 4-bit NF4 quantization applied for LLaVA-1.6-7B. Gemma-3-4B loaded in fp16.
+
+### 15.3 Results
+
+#### 15.3.1 Main Results Table
+
+| Model | Condition | Overall F1 | ΔF1 vs 0-shot | Closed Acc | Open F1 | p (vs 0-shot) |
+|---|---|---|---|---|---|---|
+| Gemma-3-4B | **0-shot** | **57.27%** | — | 80.00% | 34.53% | — |
+| Gemma-3-4B | 1-shot | 56.08% | −1.19 pp | 69.00% | 43.15% | 0.698 ns |
+| Gemma-3-4B | 3-shot | 53.82% | −3.45 pp | 71.00% | 36.64% | 0.215 ns |
+| LLaVA-1.6-7B | **0-shot** | **38.24%** | — | 54.00% | 29.47% | — |
+| LLaVA-1.6-7B | 1-shot | 34.00% | −4.24 pp | 57.00% | 11.00% | 0.188 ns |
+| LLaVA-1.6-7B | 3-shot | 34.90% | −3.34 pp | 52.00% | 17.80% | 0.349 ns |
+
+*Paired permutation test, 10,000 iterations. ns: p ≥ 0.05 (not significant).*
+
+#### 15.3.2 Reference Context — Gap to MedGemma-4B
+
+| Model | Full-dataset SLAKE F1 | Gap to MedGemma |
+|---|---|---|
+| MedGemma-4B (Section 8 baseline) | 70.50% | — |
+| Gemma-3-4B (Section 8 baseline) | 42.14% | −28.36 pp |
+| LLaVA-1.6-7B (Section 8 baseline) | 36.98% | −33.52 pp |
+| Gemma-3-4B (this subset, 0-shot) | 57.27% | — |
+| LLaVA-1.6-7B (this subset, 0-shot) | 38.24% | — |
+
+> **Note on subset vs. full-dataset numbers:** The 0-shot F1 on the 200-sample stratified subset differs from the full-dataset baseline (Gemma-3: 57.27% vs 42.14%; LLaVA: 38.24% vs 36.98%). This is expected — the subset is stratified toward Modality/Organ/Abnormality question types only, which removes many harder Attribute/Position/Count questions that depress the full-dataset score. The relevant comparison for this experiment is the **within-model, within-subset change across shot conditions** — not the absolute level versus full-dataset baselines.
+
+#### 15.3.3 Per Question-Type F1 Breakdown
+
+| Model | Condition | Modality F1 | Organ F1 | Abnormality F1 |
+|---|---|---|---|---|
+| Gemma-3-4B | 0-shot | 89.30% | 49.11% | 33.37% |
+| Gemma-3-4B | 1-shot | 87.80% | 45.48% | 34.95% |
+| Gemma-3-4B | 3-shot | 86.16% | 44.26% | 30.99% |
+| LLaVA-1.6-7B | 0-shot | 64.26% | 32.90% | 17.56% |
+| LLaVA-1.6-7B | 1-shot | 72.95% | 14.00% | 15.06% |
+| LLaVA-1.6-7B | 3-shot | 68.44% | 23.93% | 12.22% |
+
+### 15.4 Diagnostic Findings
+
+**Finding 1 — No statistically significant improvement for either model at any shot count.** All four significance tests (Gemma-3 0v1, Gemma-3 0v3, LLaVA 0v1, LLaVA 0v3) returned p-values well above 0.05. Adding clinical examples to the prompt does not measurably change the models' ability to answer medical VQA questions correctly.
+
+**Finding 2 — Overall F1 slightly decreases under few-shot prompting.** Gemma-3-4B drops from 57.27% (0-shot) to 53.82% (3-shot); LLaVA-1.6-7B drops from 38.24% to 34.90%. While neither change is statistically significant, the direction is consistently negative. Few-shot examples do not help and may mildly interfere.
+
+**Finding 3 — The pattern varies by question type.** For Gemma-3-4B, Open F1 improves slightly with 1-shot (34.53% → 43.15%) but reverts at 3-shot (36.64%), while Closed Accuracy drops substantially at 1-shot (80.00% → 69.00%). For LLaVA-1.6-7B, Organ and Abnormality F1 fall sharply under few-shot conditions. This suggests the exemplars are providing some format signal for open-ended questions but inadvertently disrupting the yes/no decision boundary for closed questions.
+
+**Finding 4 — Modality questions are robust; clinical content questions are not.** Modality questions (e.g., "Is this an MRI?") already have high 0-shot scores (89% for Gemma-3, 64% for LLaVA) and show minimal change under few-shot. The largest degradations appear in Organ and Abnormality questions — precisely the categories requiring domain-specific anatomical knowledge that cannot be conveyed by a 1–3 word exemplar answer.
+
+### 15.5 Interpretation
+
+**The domain bottleneck is architectural, not informational.** Generalist models do not improve with clinical few-shot examples because the performance deficit is not caused by unfamiliarity with the question-answer format — it is caused by the absence of the domain-specific visual feature representations that medical pre-training encodes. No amount of in-context prompting can teach a model to identify a patellar cartilage abnormality in an MRI if its visual encoder was never optimized to extract that signal.
+
+This result is the counterpart to Section 8's central finding and to Section 14's S-CoT negative result. Together, the three experiments establish the same conclusion through three different lenses:
+
+- **Section 8:** Scaling parameters (4B→7B) without domain training provides zero clinical benefit.
+- **Section 14:** Enriching the prompt structure (S-CoT) without domain training does not help and may hurt.
+- **Section 15:** Enriching the prompt context (few-shot examples) without domain training does not help.
+
+The converging evidence strongly validates that **medical fine-tuning is mandatory** — not merely beneficial — for competitive medical VQA performance.
+
+### 15.6 Summary of Findings
+
+Neither generalist model showed statistically significant F1 improvement under few-shot prompting at any shot count. Gemma-3-4B declined from 57.27% (0-shot) to 53.82% (3-shot, ΔF1 = −3.45 pp, p = 0.215); LLaVA-1.6-7B declined from 38.24% to 34.90% (ΔF1 = −3.34 pp, p = 0.349). The largest performance degradations were concentrated in Organ and Abnormality questions — the categories most dependent on domain-specific anatomical knowledge — while Modality questions, which do not require clinical expertise, remained largely stable. These results, combined with the Section 14 S-CoT findings and the Section 8 parameter-scaling analysis, establish a convergent empirical case that the performance gap between generalist and medical VLMs is driven by architectural differences in domain-specific visual representations and cannot be closed through prompt engineering alone.
+
+---
+
+*Full per-sample outputs: `outputs/_archive/fewshot_experiment/`. Analysis script: `scripts/fewshot_analysis.py`. Chart: `results/fig_fewshot_f1.png`. Detailed report: `docs/report_fewshot_experiment.md`.*

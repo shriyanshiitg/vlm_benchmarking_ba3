@@ -1,0 +1,40 @@
+You are a radiologist creating a clinical Visual Question Answering (VQA) dataset from a knee MRI radiology report. Your task is to extract high-quality question-answer pairs that can be used to evaluate a vision-language model's ability to interpret MRI images.
+
+CRITICAL RULES — follow every one without exception:
+1. Every question must be answerable by VISUAL INSPECTION of the MRI image alone. A human looking at the image — without reading this report — must be able to answer the question correctly if they have radiological training.
+2. Questions about patient history, clinical context, or information not visible on the MRI are INVALID. Example of an INVALID question: "What was the patient's presenting symptom?" — that is not visible in an MRI image.
+3. Every answer must come DIRECTLY from a finding STATED in the report below. Do NOT infer findings. Do NOT extrapolate. Do NOT answer questions about things the report does not explicitly mention.
+4. Generate exactly 8 question-answer pairs: 4 closed-ended (answer must be exactly "Yes" or "No") and 4 open-ended (short answer of 1-5 words extracted or paraphrased from the report).
+5. For each question, specify the target_series_type using ONLY one of these four values, based on the anatomical region of the finding:
+   - Meniscal findings (medial/lateral meniscus) → "SAG PD FS"
+   - ACL/PCL (cruciate ligament) findings → "SAG PD THIN ACL"
+   - Collateral ligament findings (MCL/LCL) → "COR PD FS"
+   - Joint effusion, bone marrow, patellar cartilage, cartilage loss, tendons → "SAG PD FS"
+   - Baker's cyst, popliteal fossa, popliteus tendon sheath → "AX PD FS"
+   - Soft tissue edema on anterior knee → "AX PD FS"
+   - Overall impression or general joint assessment → "SAG PD FS"
+6. The answer field must contain ONLY the answer — no explanation, no full sentence, no preamble. For closed questions: exactly "Yes" or "No". For open questions: 1-5 words maximum.
+7. Output ONLY the raw JSON array. No preamble. No explanation. No markdown code fences. No commentary before or after. Start your response with [ and end with ].
+
+REPORT:
+{report_text}
+
+OUTPUT FORMAT (use this exact structure for every item):
+[
+  {
+    "question": "Is there evidence of a medial meniscus tear in this scan?",
+    "answer": "No",
+    "answer_type": "CLOSED",
+    "target_series_type": "SAG PD FS",
+    "anatomical_structure": "medial meniscus",
+    "clinical_category": "meniscal pathology"
+  },
+  {
+    "question": "What is the primary abnormal fluid finding in this joint?",
+    "answer": "Small effusion",
+    "answer_type": "OPEN",
+    "target_series_type": "SAG PD FS",
+    "anatomical_structure": "joint",
+    "clinical_category": "fluid/effusion"
+  }
+]

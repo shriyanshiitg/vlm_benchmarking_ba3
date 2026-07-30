@@ -1,0 +1,116 @@
+{
+  "Gemma-3-4B_0shot": {
+    "model": "Gemma-3-4B",
+    "n_shot": 0,
+    "n": 200,
+    "n_closed": 100,
+    "n_open": 100,
+    "f1": 0.5727,
+    "f1_closed": 0.8,
+    "f1_open": 0.3453,
+    "closed_acc": 0.8,
+    "bleu": 0.1039,
+    "qtypes": {
+      "Modality": 0.7879,
+      "Organ": 0.5294,
+      "Abnormality": 0.402
+    },
+    "sig_0v1": 0.698,
+    "sig_0v3": 0.2145
+  },
+  "Gemma-3-4B_1shot": {
+    "model": "Gemma-3-4B",
+    "n_shot": 1,
+    "n": 200,
+    "n_closed": 100,
+    "n_open": 100,
+    "f1": 0.5608,
+    "f1_closed": 0.69,
+    "f1_open": 0.4315,
+    "closed_acc": 0.69,
+    "bleu": 0.1032,
+    "qtypes": {
+      "Modality": 0.8182,
+      "Organ": 0.5098,
+      "Abnormality": 0.3558
+    },
+    "sig_0v1": 0.698,
+    "sig_0v3": 0.2145
+  },
+  "Gemma-3-4B_3shot": {
+    "model": "Gemma-3-4B",
+    "n_shot": 3,
+    "n": 200,
+    "n_closed": 100,
+    "n_open": 100,
+    "f1": 0.5382,
+    "f1_closed": 0.71,
+    "f1_open": 0.3664,
+    "closed_acc": 0.71,
+    "bleu": 0.0987,
+    "qtypes": {
+      "Modality": 0.7879,
+      "Organ": 0.4363,
+      "Abnormality": 0.3935
+    },
+    "sig_0v1": 0.698,
+    "sig_0v3": 0.2145
+  },
+  "LLaVA-1.6-7B_0shot": {
+    "model": "LLaVA-1.6-7B",
+    "n_shot": 0,
+    "n": 200,
+    "n_closed": 100,
+    "n_open": 100,
+    "f1": 0.3824,
+    "f1_closed": 0.4701,
+    "f1_open": 0.2947,
+    "closed_acc": 0.54,
+    "bleu": 0.0698,
+    "qtypes": {
+      "Modality": 0.4242,
+      "Organ": 0.4147,
+      "Abnormality": 0.3073
+    },
+    "sig_0v1": 0.1882,
+    "sig_0v3": 0.3493
+  },
+  "LLaVA-1.6-7B_1shot": {
+    "model": "LLaVA-1.6-7B",
+    "n_shot": 1,
+    "n": 200,
+    "n_closed": 100,
+    "n_open": 100,
+    "f1": 0.34,
+    "f1_closed": 0.57,
+    "f1_open": 0.11,
+    "closed_acc": 0.57,
+    "bleu": 0.0581,
+    "qtypes": {
+      "Modality": 0.3182,
+      "Organ": 0.3971,
+      "Abnormality": 0.303
+    },
+    "sig_0v1": 0.1882,
+    "sig_0v3": 0.3493
+  },
+  "LLaVA-1.6-7B_3shot": {
+    "model": "LLaVA-1.6-7B",
+    "n_shot": 3,
+    "n": 200,
+    "n_closed": 100,
+    "n_open": 100,
+    "f1": 0.349,
+    "f1_closed": 0.52,
+    "f1_open": 0.178,
+    "closed_acc": 0.52,
+    "bleu": 0.0655,
+    "qtypes": {
+      "Modality": 0.3182,
+      "Organ": 0.4314,
+      "Abnormality": 0.295
+    },
+    "sig_0v1": 0.1882,
+    "sig_0v3": 0.3493
+  }
+}

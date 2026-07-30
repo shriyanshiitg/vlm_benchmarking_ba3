@@ -121,25 +121,9 @@ MAD is the appropriate disagreement measure for these strata.
 
 ---
 
-## 6. Methods Paragraph (paper-ready)
+## 6. Methodology
 
-```
-Inter-rater reliability of the Llama-3.1-8B-Instruct judge was assessed by
-running an independent Llama-3.3-70B-Versatile judge (Groq LPU inference)
-on a stratified 499-record sample designed to stress-test boundary
-cases: 100 records at each of score 1 and score 5 (easy anchors), 150 records
-at score 3 (maximum ambiguity), and 150 open-ended medical-dataset records
-where clinical knowledge is most critical. Both judges used the identical
-MEDICAL_JUDGE_PROMPT (1–5 integer scale, reference-grounded, evaluation-
-before-rating). The 70B judge operates on an independent inference stack
-(Groq LPU hardware) with no shared weights or quantization with the 8B judge.
-Agreement was measured by linear-weighted Cohen’s kappa (κ = 0.696),
-Pearson r = 0.810, Spearman ρ = 0.818,
-and mean absolute difference = 0.567 score points.
-Exact agreement was 66.3% and within-one-point
-agreement was 80.8%. No significant systematic
-bias was detected (mean difference = +0.194).
-```
+Inter-rater reliability of the Llama-3.1-8B-Instruct judge was assessed by running an independent Llama-3.3-70B-Versatile judge (Groq LPU inference) on a stratified 499-record sample designed to stress-test boundary cases: 100 records at each of score 1 and score 5 (easy anchors), 150 records at score 3 (maximum ambiguity), and 150 open-ended medical-dataset records where clinical knowledge is most critical. Both judges used the identical MEDICAL_JUDGE_PROMPT (1–5 integer scale, reference-grounded, evaluation-before-rating). The 70B judge operates on an independent inference stack (Groq LPU hardware) with no shared weights or quantization with the 8B judge. Agreement was measured by linear-weighted Cohen’s kappa (κ = 0.696), Pearson r = 0.810, Spearman ρ = 0.818, and mean absolute difference = 0.567 score points. Exact agreement was 66.3% and within-one-point agreement was 80.8%. No significant systematic bias was detected (mean difference = +0.194).
 
 ---
 

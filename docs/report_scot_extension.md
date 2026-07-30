@@ -105,21 +105,9 @@ working memory than VQA-RAD's more homogeneous chest X-rays).
 
 ---
 
-## 5. Paper-Ready Paragraph (Section 14 Update)
+## 5. Summary
 
-> The S-CoT intervention was extended to two additional model–dataset pairs:
-> HuatuoGPT-Vision-7B-Qwen2.5VL on SLAKE and MedGemma-4B on VQA-RAD. The same
-> four-step structured prompt was applied without modification, using identical
-> baselines from Section 8. Results showed no statistically significant degradation
-> in either new combination (HuatuoGPT-7B/SLAKE: ΔF1 = −0.8 pp, p = 0.570;
-> MedGemma-4B/VQA-RAD: ΔF1 = −0.9 pp, p = 0.576), in contrast to the original
-> MedGemma-4B/SLAKE finding (ΔF1 = −5.0 pp, p < 0.001). These results indicate
-> that S-CoT-induced performance degradation is neither architecture-agnostic nor
-> universally harmful. Instead, it appears to emerge from the interaction of limited
-> model capacity (4B parameters) with dataset visual complexity (SLAKE's
-> heterogeneous multi-organ imaging), suggesting that the generative drag hypothesis
-> applies within a specific regime rather than as a general property of structured
-> prompting in medical VQA.
+The S-CoT intervention was extended to two additional model–dataset pairs: HuatuoGPT-Vision-7B-Qwen2.5VL on SLAKE and MedGemma-4B on VQA-RAD, using the identical four-step structured prompt and baselines from the main evaluation (Section 8). Results showed no statistically significant degradation in either new combination (HuatuoGPT-7B/SLAKE: ΔF1 = −0.8 pp, p = 0.570; MedGemma-4B/VQA-RAD: ΔF1 = −0.9 pp, p = 0.576), in contrast to the original MedGemma-4B/SLAKE finding (ΔF1 = −5.0 pp, p < 0.001). The S-CoT-induced performance degradation is therefore neither architecture-agnostic nor universally harmful. It appears to emerge from the interaction of limited model capacity (4B parameters) with dataset visual complexity (SLAKE’s heterogeneous multi-organ imaging), suggesting that the generative drag hypothesis applies within a specific regime rather than as a general property of structured prompting in medical VQA.
 
 ---
 
