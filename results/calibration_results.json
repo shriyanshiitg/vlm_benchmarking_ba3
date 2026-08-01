@@ -1,0 +1,58 @@
+{
+  "MedGemma-4B__slake": {
+    "model": "MedGemma-4B",
+    "dataset": "slake",
+    "n": 416,
+    "n_yes": 175,
+    "n_no": 241,
+    "accuracy": 0.7404,
+    "yes_acc": 0.8914,
+    "no_acc": 0.6307,
+    "mean_conf": 0.5537,
+    "ece": 0.2195,
+    "brier": 0.2129,
+    "overconf": -0.1867
+  },
+  "MedGemma-4B__vqa_rad": {
+    "model": "MedGemma-4B",
+    "dataset": "vqa_rad",
+    "n": 251,
+    "n_yes": 118,
+    "n_no": 133,
+    "accuracy": 0.7968,
+    "yes_acc": 0.7881,
+    "no_acc": 0.8045,
+    "mean_conf": 0.4776,
+    "ece": 0.1952,
+    "brier": 0.192,
+    "overconf": -0.3192
+  },
+  "Gemma-3-4B__slake": {
+    "model": "Gemma-3-4B",
+    "dataset": "slake",
+    "n": 416,
+    "n_yes": 175,
+    "n_no": 241,
+    "accuracy": 0.5793,
+    "yes_acc": 0.8743,
+    "no_acc": 0.3651,
+    "mean_conf": 0.6757,
+    "ece": 0.3549,
+    "brier": 0.3468,
+    "overconf": 0.0964
+  },
+  "Gemma-3-4B__vqa_rad": {
+    "model": "Gemma-3-4B",
+    "dataset": "vqa_rad",
+    "n": 251,
+    "n_yes": 118,
+    "n_no": 133,
+    "accuracy": 0.5538,
+    "yes_acc": 0.661,
+    "no_acc": 0.4586,
+    "mean_conf": 0.5963,
+    "ece": 0.4318,
+    "brier": 0.431,
+    "overconf": 0.0425
+  }
+}
