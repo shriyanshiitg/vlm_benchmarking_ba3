@@ -203,7 +203,7 @@ The core experimental programme is complete. All five planned methodological val
 
 ---
 
-### T4 — Ensemble / Model Combination Experiment
+### T4 — Ensemble / Model Combination Experiment ✅ Done
 **Importance:** Low-Medium | **Effort:** 1 day | **Type:** Analysis (no new inference)
 
 **Gap:** The failure overlap analysis (C2) showed that MedGemma and HuatuoGPT share 623 wins but also 232 failures — approximately 22% of questions that *neither* medical model can answer. Conversely, there are questions only HuatuoGPT gets right that MedGemma fails (47 exclusive wins), and vice versa (159 exclusive wins for MedGemma). A simple ensemble — majority vote for closed questions, best-score selection for open questions — could theoretically capture these complementary strengths.

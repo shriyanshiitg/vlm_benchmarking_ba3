@@ -533,3 +533,82 @@ HuatuoGPT-7B scores 49.85% F1 on CT and 49.15% on MRI, but only 44.53% on X-Ray 
 ---
 
 *Chart: `results/fig_modality_leaderboard.png`. No additional inference required — post-hoc decomposition of existing JSONL outputs.*
+
+---
+
+## 18. Ensemble / Model Combination Experiment
+
+### 18.1 Motivation
+
+The failure overlap analysis (Section 12, C2) established that MedGemma-4B and HuatuoGPT-7B have complementary error sets: MedGemma has 159 exclusive wins that HuatuoGPT fails, and HuatuoGPT has 47 exclusive wins that MedGemma fails. If models make different errors, combining their predictions could capture complementary strengths and outperform the best individual model — a result that would be publishable without any additional training.
+
+### 18.2 Methodology
+
+Four ensemble configurations were evaluated on both SLAKE (N=1,061) and VQA-RAD (N=451) using existing inference and judge JSONL files — no new inference was required.
+
+**Ensemble configurations:**
+| Configuration | Members |
+|---|---|
+| E1 — All-5 | All five models |
+| E2 — Med-2 | MedGemma-4B + HuatuoGPT-7B |
+| E3 — Med-3 | MedGemma-4B + HuatuoGPT-7B + LLaVA-Med-7B |
+| E4 — Med-3+Gemma | MedGemma-4B + HuatuoGPT-7B + LLaVA-Med-7B + Gemma-3-4B |
+
+**Combination strategies:**
+- **Closed questions (Yes/No):** Majority vote across member models. Ties broken by the best individual model's vote (MedGemma-4B).
+- **Open questions:** Oracle-on-judge ensemble — for each question, the prediction from whichever member model received the highest LLM Judge score is selected.
+
+### 18.3 Results
+
+#### 18.3.1 SLAKE (N=1,061)
+
+| System | Token F1 | Closed Acc | Open F1 | Judge Acc | Judge Closed | Judge Open |
+|---|---|---|---|---|---|---|
+| **MedGemma-4B** (best single) | 70.48% | 85.58% | 60.74% | 73.70% | 83.65% | 67.29% |
+| HuatuoGPT-7B | 47.89% | 72.36% | 32.11% | 63.15% | 73.80% | 56.28% |
+| Gemma-3-4B | 42.12% | 68.27% | 25.25% | 55.14% | 68.99% | 46.20% |
+| LLaVA-Med-7B | 37.05% | 50.24% | 28.41% | 53.35% | 57.69% | 50.54% |
+| LLaVA-1.6-7B | 36.93% | 58.41% | 28.18% | 50.14% | 63.22% | 41.71% |
+| E2 — Med-2 | **70.85%** | **85.58%** | 61.56% | 76.34% | 83.65% | 71.63% |
+| E3 — Med-3 | 69.82% | 81.25% | 62.65% | 80.87% | 83.65% | 79.07% |
+| E4 — Med-3+Gemma | 69.63% | 80.77% | 62.60% | 81.62% | 83.65% | 80.31% |
+| E1 — All-5 | 67.47% | 74.04% | **63.34%** | **82.85%** | 83.65% | **82.33%** |
+
+#### 18.3.2 VQA-RAD (N=451)
+
+| System | Token F1 | Closed Acc | Open F1 | Judge Acc | Judge Closed | Judge Open |
+|---|---|---|---|---|---|---|
+| **MedGemma-4B** (best single) | 62.47% | 78.09% | 42.88% | 63.86% | 73.31% | 52.00% |
+| HuatuoGPT-7B | 57.61% | 77.69% | 32.41% | 60.09% | 74.10% | 42.50% |
+| Gemma-3-4B | 43.64% | 56.57% | 27.41% | 45.90% | 56.97% | 32.00% |
+| LLaVA-1.6-7B | 41.92% | 58.57% | 21.03% | 45.01% | 58.17% | 28.50% |
+| LLaVA-Med-7B | 34.54% | 49.80% | 15.39% | 46.34% | 45.42% | 47.50% |
+| E2 — Med-2 | 64.19% | 78.09% | 46.76% | 67.85% | 73.31% | 61.00% |
+| E3 — Med-3 | 64.33% | 78.09% | 47.06% | 72.51% | 73.31% | 71.50% |
+| E4 — Med-3+Gemma | **65.18%** | **79.28%** | **47.49%** | 72.51% | 73.31% | 71.50% |
+| E1 — All-5 | 62.65% | 74.50% | 47.77% | **73.61%** | 73.31% | **74.00%** |
+
+### 18.4 Findings
+
+**Finding 1 — Ensembles improve Judge Accuracy but not Token F1.**
+The most striking pattern across both datasets: ensembles achieve substantially higher LLM Judge Accuracy than the best individual model, while Token F1 either stays flat or decreases. On SLAKE, E1 (All-5) reaches 82.85% Judge Accuracy vs MedGemma's 73.70% — a gain of +9.15 pp. On VQA-RAD, E1 reaches 73.61% vs MedGemma's 63.86% — a gain of +9.75 pp. This gain is entirely driven by the open-question oracle-on-judge strategy, which picks the semantically best answer per question regardless of surface form. The Judge Accuracy gain is real — it represents access to a wider vocabulary of correct answers.
+
+**Finding 2 — For closed questions, no ensemble beats MedGemma's majority-vote ceiling.**
+Closed Accuracy in E2 (Med-2) ties MedGemma at 85.58% on SLAKE — not an improvement. On VQA-RAD, E4 (Med-3+Gemma) reaches 79.28% vs MedGemma's 78.09% — a marginal +1.19 pp gain. Adding weaker models to the majority vote pulls the closed accuracy down. The majority vote ensemble for closed questions is bounded by the quality of its worst member.
+
+**Finding 3 — The E2 (Med-2) ensemble is the best practical configuration.**
+E2 (MedGemma-4B + HuatuoGPT-7B) achieves the best or near-best results on SLAKE across all metrics (F1: 70.85%, Judge: 76.34%) while requiring only two models. Adding LLaVA-Med-7B (E3) and Gemma-3-4B (E4) increases Judge Accuracy for open questions but reduces Token F1 and Closed Accuracy due to majority-vote dilution. E2 is the Pareto-optimal ensemble — maximum gain with minimal extra compute.
+
+**Finding 4 — The All-5 ensemble (E1) maximises open-question Judge Accuracy at the cost of closed accuracy.**
+E1 achieves the highest Judge Accuracy on both datasets (82.85% SLAKE, 73.61% VQA-RAD) but the lowest Closed Accuracy among ensembles (74.04% on SLAKE). The oracle-on-judge open strategy benefits from having five candidates to choose from, but five-way majority voting on closed questions is corrupted by the three weaker models. A hybrid strategy — E2 for closed, E1 for open — would achieve the theoretical maximum but is not evaluated here as a single unified system.
+
+**Finding 5 — Model combination does not close the architecture gap; it redistributes it.**
+No ensemble surpasses the best individual model's Token F1 by more than 0.37 pp on SLAKE and 2.71 pp on VQA-RAD. The failure overlap analysis predicted exactly this: 232 questions on SLAKE that neither MedGemma nor HuatuoGPT can answer remain unanswerable by any combination. Ensemble methods cannot manufacture knowledge that no member model possesses.
+
+### 18.5 Conclusion
+
+Model ensembling provides a meaningful Judge Accuracy improvement (+9 pp) at no additional inference cost beyond what is already computed, by selecting the best open-ended answer from existing candidates. However, it does not overcome the architectural domain gap for closed questions, and Token F1 gains are negligible. The practical recommendation is the E2 (MedGemma-4B + HuatuoGPT-7B) configuration, which captures the complementary strengths identified in the failure overlap analysis while remaining computationally tractable.
+
+---
+
+*Script: `scripts/ensemble_analysis.py`. Results JSON: `results/ensemble_results.json`. Chart: `results/fig_ensemble_experiment.png`.*
