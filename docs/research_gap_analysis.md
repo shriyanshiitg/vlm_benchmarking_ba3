@@ -172,14 +172,12 @@ The core experimental programme is complete. All five planned methodological val
 
 ---
 
-### T1 — Modality-Specific Performance Leaderboard
+### T1 — Modality-Specific Performance Leaderboard ✅ Done
 **Importance:** Medium | **Effort:** 0.5 days | **Type:** Analysis (no new inference)
 
-**Gap:** All benchmark results are reported as dataset-level aggregates (SLAKE overall F1, VQA-RAD overall accuracy). The SLAKE metadata includes an `img_modality` field (CT, MRI, X-Ray) and the error analysis (A1) already established that modality confusion rates vary dramatically — LLaVA-1.6 confuses modalities 29.84% of the time while MedGemma makes only 4.03% errors. However, we never decomposed F1 and Judge accuracy *by imaging modality* to show which models fail specifically on CT vs. MRI vs. X-Ray.
+**Result:** Post-hoc decomposition of all five SLAKE JSONL files by the `modality` field. MedGemma-4B leads every modality on both Token F1 and Judge accuracy. Key findings: X-Ray is the strongest modality for MedGemma (77.50% F1, 79.50% Judge); CT is the hardest for generalist models (LLaVA-1.6: 32.93% F1, 42.37% Judge); LLaVA-1.6 has a 17.74 pp X-Ray vs CT Judge accuracy gap, confirming its domain-specific spatial failure. VQA-RAD excluded — no per-image modality metadata available.
 
-**What it adds:** A per-modality leaderboard would answer whether MedGemma's advantage is uniform across imaging types or concentrated in, e.g., CT which is better represented in its training data. It would also reveal whether LLaVA-1.6's spatial blindness is modality-specific. This requires filtering the existing SLAKE JSONL files by `img_modality` — zero new inference.
-
-**Deliverable:** One table per dataset (SLAKE/VQA-RAD) showing F1 and Judge accuracy broken out by CT/MRI/X-Ray. Add as appendix to `docs/report.md`.
+**Section in main report:** `docs/report.md` Section 17. **Chart:** `results/fig_modality_leaderboard.png`.
 
 ---
 

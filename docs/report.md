@@ -470,3 +470,66 @@ The underconfidence pattern of MedGemma-4B likely reflects medical fine-tuning o
 ---
 
 *Full per-sample outputs: `outputs/_archive/calibration/`. Analysis script: `scripts/calibration_analysis.py`. Charts: `results/fig_calibration_reliability.png`, `results/fig_calibration_confidence_hist.png`. Detailed report: `docs/report_calibration.md`.*
+
+---
+
+## 17. Modality-Specific Performance Leaderboard (SLAKE)
+
+### 17.1 Motivation
+
+All benchmark results in Sections 11–12 aggregate performance across the full SLAKE test set without distinguishing the imaging modality of each question. SLAKE contains questions grounded in CT (N=472), MRI (N=228), and X-Ray (N=361) images. Aggregate F1 masks important clinical distinctions: a model that performs well on X-Ray but poorly on CT presents a different deployment profile than one that is uniformly mediocre. This section decomposes all five models' performance across the three imaging modalities using the `modality` metadata field embedded in the SLAKE dataset.
+
+### 17.2 Methodology
+
+The SLAKE `modality` field was joined to the existing inference JSONL files using the record index (each JSONL record's `idx` maps directly to the position in the English-filtered test split). Token F1 and LLM Judge Accuracy (≥4/5) were then computed independently for each modality group. No new inference was required — this is a post-hoc decomposition of existing outputs. VQA-RAD does not include per-image modality metadata and is excluded from this analysis.
+
+**Dataset composition:**
+
+| Modality | N (questions) | Closed | Open |
+|---|---|---|---|
+| CT | 472 | 214 | 258 |
+| MRI | 228 | 88 | 140 |
+| X-Ray | 361 | 114 | 247 |
+
+### 17.3 Results
+
+#### 17.3.1 Token F1 by Modality
+
+| Model | CT (N=472) | MRI (N=228) | X-Ray (N=361) | Overall |
+|---|---|---|---|---|
+| **MedGemma-4B** | **67.82%** | **64.87%** | **77.50%** | **70.48%** |
+| HuatuoGPT-7B | 49.85% | 49.15% | 44.53% | 47.89% |
+| Gemma-3-4B | 42.09% | 46.03% | 39.69% | 42.12% |
+| LLaVA-Med-7B | 38.33% | 34.94% | 36.73% | 37.05% |
+| LLaVA-1.6-7B | 32.93% | 34.78% | 43.52% | 36.93% |
+
+#### 17.3.2 Judge Accuracy (≥4/5) by Modality
+
+| Model | CT (N=472) | MRI (N=228) | X-Ray (N=361) | Overall |
+|---|---|---|---|---|
+| **MedGemma-4B** | **70.13%** | **71.93%** | **79.50%** | **73.70%** |
+| HuatuoGPT-7B | 58.47% | 60.96% | 70.64% | 63.15% |
+| Gemma-3-4B | 50.85% | 57.02% | 59.56% | 55.14% |
+| LLaVA-Med-7B | 49.36% | 58.33% | 55.40% | 53.35% |
+| LLaVA-1.6-7B | 42.37% | 50.44% | 60.11% | 50.14% |
+
+### 17.4 Findings
+
+**Finding 1 — MedGemma-4B leads every modality without exception.**
+Across all three imaging types and both metrics (Token F1 and Judge Accuracy), MedGemma-4B ranks first. Its advantage is not concentrated in one modality — it is a uniform structural dominance, confirming that the domain pre-training advantage from Section 12 holds independently of imaging type.
+
+**Finding 2 — X-Ray is the strongest modality for MedGemma and the most competitive for generalist models.**
+MedGemma's highest performance is on X-Ray (77.50% F1, 79.50% Judge), not CT or MRI. Notably, LLaVA-1.6-7B also achieves its highest F1 on X-Ray (43.52%), and Gemma-3-4B is strongest on X-Ray in Judge accuracy (59.56%). X-Ray images likely overlap more with general pre-training data (chest X-rays are common in public medical image repositories), reducing the domain gap slightly for all models.
+
+**Finding 3 — CT is the hardest modality for generalist models.**
+LLaVA-1.6-7B scores its lowest F1 on CT (32.93%) and its lowest Judge accuracy (42.37%). Gemma-3-4B also has its lowest Judge accuracy on CT (50.85%). CT scan interpretation requires volumetric reasoning about cross-sectional anatomy that is poorly represented in natural-image pre-training. The performance gap between MedGemma and LLaVA-1.6 is largest on CT: 70.13% vs 42.37% = 27.76 pp in Judge accuracy.
+
+**Finding 4 — LLaVA-1.6-7B shows a pronounced X-Ray vs CT asymmetry.**
+LLaVA-1.6-7B achieves 60.11% Judge accuracy on X-Ray but only 42.37% on CT — a 17.74 pp gap. This is larger than any other model's cross-modality gap and corroborates the spatial reasoning finding from A3: LLaVA's visual encoder transfers better to X-Ray images (relatively simpler 2D projections with distinct high-contrast structures) than to CT (volumetric cross-sections with complex soft-tissue contrast).
+
+**Finding 5 — HuatuoGPT-7B shows a CT/MRI advantage over X-Ray in F1 (but not Judge).**
+HuatuoGPT-7B scores 49.85% F1 on CT and 49.15% on MRI, but only 44.53% on X-Ray — the reverse pattern from MedGemma. Under Judge accuracy, X-Ray is its best modality (70.64%). This discrepancy suggests HuatuoGPT generates semantically correct X-Ray answers with slight surface-form mismatches that the LLM judge correctly credits but token matching penalises — consistent with the BLEU/F1 rescue zone finding from Section 9.
+
+---
+
+*Chart: `results/fig_modality_leaderboard.png`. No additional inference required — post-hoc decomposition of existing JSONL outputs.*
