@@ -247,7 +247,7 @@ The core experimental programme is complete. All five planned methodological val
 
 ---
 
-### T8 — Prompt Template Sensitivity Study
+### T8 — Prompt Template Sensitivity Study ✅ Done
 **Importance:** Low | **Effort:** 1–2 days (Kaggle T4) | **Type:** New experiment
 
 **Gap:** The v2 prompt protocol (Section 6.2) was designed specifically based on the MedGemma technical report and boosted F1 by +14.55 pp over v1. However, all five models use the *identical* prompt template. There is no measurement of whether this template is optimal for non-MedGemma architectures. HuatuoGPT uses a Qwen2.5-VL backbone with a different instruction format; its optimal prompt may be different. LLaVA-Med was trained on PMC-15M with a conversational format that may respond better to different phrasing.

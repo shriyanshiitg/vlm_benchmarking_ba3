@@ -23,7 +23,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 
 MODELS = {
     'HuatuoGPT-7B': 'FreedomIntelligence_HuatuoGPT-Vision-7B-Qwen2.5VL',
-    'LLaVA-Med-7B': 'microsoft_llava-med-v1.5-mistral-7b',
+    'LLaVA-Med-7B': 'chaoyinshe_llava-med-v1.5-mistral-7b-hf',
 }
 VARIANTS = ['v2_baseline', 'v3_simple', 'v4_direct']
 
