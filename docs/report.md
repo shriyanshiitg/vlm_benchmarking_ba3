@@ -723,3 +723,86 @@ The prompt sensitivity study produces two corrective actions for the main benchm
 ---
 
 *Script: `scripts/prompt_sensitivity_analysis.py`. Outputs: `outputs/_archive/prompt_sensitivity/`. Chart: `results/fig_prompt_sensitivity.png`. Results JSON: `results/prompt_sensitivity_results.json`.*
+
+---
+
+## 20. HuatuoGPT-7B — Corrected SLAKE Inference (v3_simple)
+
+### 20.1 Background
+
+Section 19 established that HuatuoGPT-7B's main benchmark scores were prompt-template-limited: the v2 `Final Answer: X` anchor was produced in only 41% of responses, causing the extraction fallback to return reasoning preamble with near-zero F1 in the remaining 59%. The v3_simple prompt ("Answer concisely in one word or short phrase.") recovered +21.18 pp Token F1 on the 200-sample subset.
+
+This section presents the corrected full-dataset results: HuatuoGPT-7B re-run on the complete SLAKE EN test set (1,061 questions) using the v3_simple prompt.
+
+### 20.2 Methodology
+
+- **Model:** `FreedomIntelligence/HuatuoGPT-Vision-7B-Qwen2.5VL`, 4-bit NF4, Kaggle T4
+- **Dataset:** SLAKE EN test split, all 1,061 questions (416 closed, 645 open)
+- **Prompt (v3_simple):**
+  - Closed: `"Answer with yes or no only. {question} Answer concisely in one word or short phrase."`
+  - Open: `"{question} Answer concisely in one word or short phrase."`
+- **Extraction:** First non-empty output line — no anchor regex required
+- **Notebook:** `notebooks/13_huatuo_corrected_inference.ipynb`
+
+### 20.3 Results
+
+#### 20.3.1 Overall Metrics (Token F1)
+
+| Metric | v2 Baseline (Section 11) | v3_simple Corrected | Δ |
+|---|---|---|---|
+| **Token F1** | 47.89% | **52.32%** | **+4.43 pp** |
+| **Closed Acc** | 72.36% | **74.52%** | **+2.16 pp** |
+| **Open F1** | 32.11% | **38.16%** | **+6.05 pp** |
+
+#### 20.3.2 Per Content-Type Token F1
+
+| Content Type | v2 Baseline | v3_simple | Δ | n |
+|---|---|---|---|---|
+| Color | 8.8% | **44.1%** | **+35.3 pp** | 34 |
+| Size | 46.2% | **70.8%** | **+24.6 pp** | 65 |
+| Position | 42.1% | **51.0%** | **+8.9 pp** | 186 |
+| Modality | 79.3% | **84.9%** | **+5.6 pp** | 108 |
+| Plane | 43.1% | **47.7%** | **+4.6 pp** | 58 |
+| Abnormality | 53.2% | **54.7%** | +1.5 pp | 150 |
+| Quantity | 7.7% | 7.7% | 0.0 pp | 52 |
+| KG | 31.1% | 30.5% | −0.6 pp | 148 |
+| Organ | 60.7% | 58.4% | −2.2 pp | 253 |
+| Shape | 42.9% | 14.3% | −28.6 pp | 7 |
+
+### 20.4 Analysis
+
+**Overall gain of +4.43 pp Token F1 (47.89% → 52.32%) is confirmed on the full dataset.** This is smaller than the +21.18 pp observed on the 200-sample stratified subset because:
+
+1. The stratified subset overrepresented Modality and Size questions (the anchor-failure categories) and underrepresented Organ questions (where v2 was already partially functional). On the full dataset, Organ (n=253) is the dominant content type and shows a slight regression (−2.2 pp) under v3_simple.
+
+2. The full-dataset closed accuracy gap is smaller (+2.16 pp vs +22.62 pp on subset) because the v2 prompt was already producing correct closed answers in 72.36% of cases — the anchor failure primarily damaged open-ended predictions.
+
+**Open F1 gain of +6.05 pp (32.11% → 38.16%) is the largest single improvement** and consistent with the root cause: the anchor failure affected open questions disproportionately (v2 returned reasoning preamble as prediction for the 59% of open questions where `Final Answer:` was absent).
+
+**Color questions show the largest category-level improvement (+35.3 pp).** In v2, color questions typically triggered the longest reasoning chains (the model would describe color gradients, tissue density variations, etc.) making the anchor failure especially damaging. v3_simple's brevity constraint resolves this directly.
+
+**Shape questions regress (−28.6 pp)**, though this is a very small sample (n=7) and the difference is not statistically meaningful.
+
+**KG and Organ questions are essentially unchanged**, confirming they were already being handled adequately by v2's extraction fallback.
+
+### 20.5 Revised Benchmark Position
+
+With the corrected v3_simple scores, the SLAKE Token F1 leaderboard becomes:
+
+| Model | SLAKE Token F1 | Change |
+|---|---|---|
+| MedGemma-4B | 70.48% | — |
+| **HuatuoGPT-7B (v3_corrected)** | **52.32%** | **↑ from 47.89%** |
+| HuatuoGPT-7B (v2 original) | 47.89% | (superseded) |
+| Gemma-3-4B | 42.12% | — |
+| LLaVA-Med-7B | 37.05% | — |
+| LLaVA-1.6-7B | 36.93% | — |
+
+HuatuoGPT's corrected score of **52.32%** closes the gap to MedGemma-4B from 22.59 pp → **18.16 pp**. The model remains solidly in second place, but the gap is meaningfully smaller than the original benchmark suggested.
+
+> [!NOTE]
+> Judge Accuracy for the v3_corrected run is pending (LLM Judge not yet executed). Section 20 will be updated with Judge Accuracy once available. The Token F1 and Closed Accuracy numbers are final.
+
+---
+
+*Notebook: `notebooks/13_huatuo_corrected_inference.ipynb`. Script: `scripts/huatuo_corrected_analysis.py`. Output: `outputs/inference/FreedomIntelligence_HuatuoGPT-Vision-7B-Qwen2.5VL__slake_v3_corrected.jsonl`. Chart: `results/fig_huatuo_v3_corrected.png`.*
